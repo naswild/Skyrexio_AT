@@ -15,8 +15,9 @@ public class SmartTerminalPage {
     private static final String ACTIVE_STATUS = "//*[text()='активен']";
 
     @Step("Open smart trade page")
-    public void openPage() {
+    public SmartTerminalPage openPage() {
         open("manual-trading/trading-terminal");
+        return this;
     }
 
     public SelenideElement getOrderPriceInput() {
@@ -35,23 +36,27 @@ public class SmartTerminalPage {
     }
 
     @Step("Set order price")
-    public void setOrderPrice(String orderPrice) {
+    public SmartTerminalPage setOrderPrice(String orderPrice) {
         getOrderPriceInput().setValue(orderPrice);
+        return this;
     }
 
     @Step("Set units")
-    public void setUnits(String units) {
+    public SmartTerminalPage setUnits(String units) {
         getUnitsInput().setValue(units);
+        return this;
     }
 
     @Step("Submit order")
-    public void submitOrder() {
+    public SmartTerminalPage submitOrder() {
         $x(SUBMIT_BTN).should(Condition.exist).shouldBe(Condition.visible).scrollTo().click();
+        return this;
     }
 
     @Step("Confirm order")
-    public void confirmOrder() {
+    public SmartTerminalPage confirmOrder() {
         $x(CONFIRM_BTN).should(Condition.exist).shouldBe(Condition.visible).click();
+        return this;
     }
 
     @Step("Check if the order is displayed")

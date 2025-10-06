@@ -20,11 +20,11 @@ public class SmartTerminalTest extends BaseTest {
         loginPage.login(PropertyReader.getProperty(PropertyEnum.EMAIL.getValue()),
                 PropertyReader.getProperty(PropertyEnum.PASSWORD.getValue()));
         homePage.waitPageLoaded();
-        smartTerminalPage.openPage();
-        smartTerminalPage.setOrderPrice("123405");
-        smartTerminalPage.setUnits("0.0055");
-        smartTerminalPage.submitOrder();
-        smartTerminalPage.confirmOrder();
+        smartTerminalPage.openPage()
+                    .setOrderPrice("123405")
+                    .setUnits("0.0055")
+                    .submitOrder()
+                    .confirmOrder();
         assertTrue(smartTerminalPage.isOrderActive());
     }
 }
