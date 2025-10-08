@@ -6,8 +6,6 @@ import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import parent.BaseTest;
 
-import static org.testng.Assert.assertTrue;
-
 public class HomeTest extends BaseTest {
 
     @Severity(SeverityLevel.MINOR)
@@ -19,8 +17,7 @@ public class HomeTest extends BaseTest {
                 .loginSuccess();
 
         homePage.waitPageLoaded()
-                .chooseLanguage();
-
-        assertTrue(homePage.isTitleDisplayed());
+                .chooseLanguage()
+                .isTitleVisible();
     }
 }

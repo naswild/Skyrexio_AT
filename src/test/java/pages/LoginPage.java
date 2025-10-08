@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
@@ -68,9 +69,9 @@ public class LoginPage {
     }
 
     @Step("Check if error message is displayed")
-    public boolean waitErrorMessage() {
+    public SelenideElement waitErrorMessage() {
         String errorMsg = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_ERROR_MSG));
 
-        return $x(errorMsg).shouldBe(Condition.visible).isDisplayed();
+        return $x(errorMsg).shouldBe(Condition.visible);
     }
 }

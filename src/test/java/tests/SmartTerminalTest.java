@@ -1,16 +1,13 @@
 package tests;
 
 import com.codeborne.selenide.ex.ElementNotFound;
-import enums.PropertyEnum;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import parent.BaseTest;
-import utils.PropertyReader;
 
 import static org.testng.Assert.assertThrows;
-import static org.testng.Assert.assertTrue;
 
 public class SmartTerminalTest extends BaseTest {
 
@@ -20,11 +17,7 @@ public class SmartTerminalTest extends BaseTest {
     public void limitBuyOrder() {
         loginPage.openPage()
                 .chooseLanguage()
-                .login(
-
-                        PropertyReader.getProperty(PropertyEnum.EMAIL),
-                        PropertyReader.getProperty(PropertyEnum.PASSWORD)
-                );
+                .loginSuccess();
 
         homePage.waitPageLoaded()
                 .chooseLanguage();
@@ -33,9 +26,9 @@ public class SmartTerminalTest extends BaseTest {
                 .setOrderPrice(smartTerminalPage.getOrderPriceInput().getValue())
                 .setUnits(smartTerminalPage.getUnitsInput().getValue())
                 .submitOrder()
-                .confirmOrder();
+                .confirmOrder()
+                .isOrderActive();
 
-        assertTrue(smartTerminalPage.isOrderActive());
-        assertThrows(ElementNotFound.class, () -> smartTerminalPage.isErrorMsgDisplayed());
+        assertThrows(ElementNotFound.class, () -> smartTerminalPage.isErrorMsgVisible());
     }
 }

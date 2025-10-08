@@ -10,7 +10,6 @@ import parent.BaseTest;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
 
@@ -40,8 +39,7 @@ public class LoginTest extends BaseTest {
     public void loginWithIncorrectCredentials(String email, String password) {
         loginPage.openPage()
                 .chooseLanguage()
-                .login(email, password);
-
-        assertTrue(loginPage.waitErrorMessage());
+                .login(email, password)
+                .waitErrorMessage();
     }
 }

@@ -1,7 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import utils.PropertyReader;
 
@@ -18,6 +20,7 @@ public class HomePage {
         return this;
     }
 
+    @Step("Choose language")
     public HomePage chooseLanguage() {
         String language = "//div/span[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.PAGES_LANGUAGE));
 
@@ -30,8 +33,9 @@ public class HomePage {
         return this;
     }
 
-    public boolean isTitleDisplayed() {
+    @Step("Check if title visible")
+    public SelenideElement isTitleVisible() {
         String title = "//h2[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.HOME_STATISTICS));
-        return $x(title).should(Condition.exist).shouldBe(Condition.visible).isDisplayed();
+        return $x(title).shouldBe(Condition.visible);
     }
 }

@@ -55,7 +55,7 @@ public class SmartTerminalPage {
 
     @Step("Submit order")
     public SmartTerminalPage submitOrder() {
-        $x(SUBMIT_BTN).should(Condition.exist).shouldBe(Condition.visible).scrollTo().click();
+        $x(SUBMIT_BTN).shouldBe(Condition.visible).scrollTo().click();
 
         return this;
     }
@@ -63,22 +63,22 @@ public class SmartTerminalPage {
     @Step("Confirm order")
     public SmartTerminalPage confirmOrder() {
         String confirmBtn = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
-        $x(confirmBtn).should(Condition.exist).shouldBe(Condition.visible).click();
+        $x(confirmBtn).shouldBe(Condition.visible).click();
 
         return this;
     }
 
     @Step("Check if the order is displayed")
-    public boolean isOrderActive() {
+    public SelenideElement isOrderActive() {
         String terminalActive = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ACTIVE));
 
-        return $x(terminalActive).should(Condition.exist).shouldBe(Condition.visible).isDisplayed();
+        return $x(terminalActive).shouldBe(Condition.visible);
     }
 
-    @Step("Check if error message is displayed")
-    public boolean isErrorMsgDisplayed() {
+    @Step("Check if error message is visible")
+    public SelenideElement isErrorMsgVisible() {
         String terminalErrorMsg = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ERROR_MSG));
 
-        return $x(terminalErrorMsg).should(Condition.exist).shouldBe(Condition.visible).isDisplayed();
+        return $x(terminalErrorMsg).shouldBe(Condition.visible);
     }
 }
