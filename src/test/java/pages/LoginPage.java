@@ -35,6 +35,15 @@ public class LoginPage {
         return this;
     }
 
+    @Step("Check if title is right")
+    public LoginPage checkIfTitleIsRight() {
+        String loginTitle = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_TITLE));
+        $x(loginTitle).shouldBe(Condition.visible);
+
+        return this;
+    }
+
+
     @Step("Login")
     public LoginPage login(String email, String password) {
         inputEmail(email);
