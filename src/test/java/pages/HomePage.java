@@ -1,11 +1,12 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import utils.PropertyReader;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
@@ -33,9 +34,24 @@ public class HomePage {
         return this;
     }
 
-    @Step("Check if title visible")
-    public SelenideElement isTitleVisible() {
-        String title = "//h2[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.HOME_STATISTICS));
-        return $x(title).shouldBe(Condition.visible);
+    @Step("Check if localization is correct")
+    public HomePage isLocalizationCorrect() {
+        String tabBtnTemplate = "//*[@role='tab' and text()='%s']";
+        List<String> elementList = List.of(
+                "//h2[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.HOME_STATISTICS)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_SPOT_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_FUTURES_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_BUY_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_SELL_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_ALL_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_BOTS_TAB)),
+                tabBtnTemplate.formatted(PropertyReader.getProperty(PropertyEnum.HOME_MANUAL_TAB))
+        );
+
+        for (String element : elementList) {
+            $x(element).shouldBe(Condition.visible);
+        }
+
+        return this;
     }
 }
