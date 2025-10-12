@@ -62,6 +62,7 @@ public class SmartTerminalTest extends BaseTest {
     public void cleanUpCreatedTrade() {
         smartTerminalPage.openTradeManagementMenu()
                 .cancelOrder()
-                .confirmCancellation();
+                .confirmCancellation()
+                .isCancellationMsgVisible();
     }
 }

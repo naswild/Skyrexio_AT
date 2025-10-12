@@ -5,16 +5,18 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
+import parent.BasePage;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class SmartTerminalPage {
+public class SmartTerminalPage extends BasePage {
 
     private static final String INPUT_FIELDS = "input.tw-flex-1";
     private static final String SUBMIT_BTN = "//*[@type='submit']";
     private static final String TRADE_MANAGEMENT_MENU
             = "//*[name()='svg' and contains(@class, 'lucide-ellipsis-vertical')]/ancestor::button";
+    private static final String DEFAULT_EMPTY_VALUE = "0";
 
     @Step("Open smart trade page")
     public SmartTerminalPage openPage() {
@@ -25,7 +27,7 @@ public class SmartTerminalPage {
 
     @Step("Choose {tradeType} trade type")
     public SmartTerminalPage chooseTradeType(String tradeType) {
-        $x("//button[text()='%s']".formatted(tradeType)).shouldBe(Condition.visible).scrollTo().click();
+        $x(TEXT_LOCATOR_PATTERN.formatted(tradeType)).shouldBe(Condition.visible).scrollTo().click();
 
         return this;
     }
@@ -33,19 +35,19 @@ public class SmartTerminalPage {
     public SelenideElement getOrderPriceInput() {
         ElementsCollection inputFields = $$(INPUT_FIELDS);
 
-        return inputFields.get(0);
+        return inputFields.get(0).shouldNotHave(Condition.exactValue(DEFAULT_EMPTY_VALUE));
     }
 
     public SelenideElement getUnitsInput() {
         ElementsCollection inputFields = $$(INPUT_FIELDS);
 
-        return inputFields.get(1);
+        return inputFields.get(1).shouldNotHave(Condition.exactValue(DEFAULT_EMPTY_VALUE));
     }
 
     public SelenideElement getTotalInput() {
         ElementsCollection inputFields = $$(INPUT_FIELDS);
 
-        return inputFields.get(2);
+        return inputFields.get(2).shouldNotHave(Condition.exactValue(DEFAULT_EMPTY_VALUE));
     }
 
     @Step("Set order price")
@@ -78,7 +80,7 @@ public class SmartTerminalPage {
 
     @Step("Confirm order")
     public SmartTerminalPage confirmOrder() {
-        String confirmBtn = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
+        String confirmBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
         $x(confirmBtn).shouldBe(Condition.visible).click();
 
         return this;
@@ -86,7 +88,7 @@ public class SmartTerminalPage {
 
     @Step("Check if the order is displayed")
     public SmartTerminalPage isOrderActive() {
-        String terminalActive = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ACTIVE));
+        String terminalActive = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ACTIVE));
         $x(terminalActive).shouldBe(Condition.visible);
 
         return this;
@@ -94,7 +96,7 @@ public class SmartTerminalPage {
 
     @Step("Check if error message is visible")
     public SelenideElement isErrorMsgVisible() {
-        String terminalErrorMsg = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ERROR_MSG));
+        String terminalErrorMsg = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ERROR_MSG));
 
         return $x(terminalErrorMsg).shouldBe(Condition.visible);
     }
@@ -108,7 +110,7 @@ public class SmartTerminalPage {
 
     @Step("Cancel order")
     public SmartTerminalPage cancelOrder() {
-        String cancelBtn = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCEL_TRADE));
+        String cancelBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCEL_TRADE));
         $x(cancelBtn).shouldBe(Condition.visible).click();
 
         return this;
@@ -116,7 +118,7 @@ public class SmartTerminalPage {
 
     @Step("Confirm cancellation")
     public SmartTerminalPage confirmCancellation() {
-        String confirmBtn = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
+        String confirmBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
         $x(confirmBtn).shouldBe(Condition.visible).click();
 
         return this;
@@ -124,8 +126,8 @@ public class SmartTerminalPage {
 
     @Step("Check if cancellation message is visible")
     public SmartTerminalPage isCancellationMsgVisible() {
-        String cancellationTitle = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TITLE));
-        String cancellationText = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TEXT));
+        String cancellationTitle = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TITLE));
+        String cancellationText = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TEXT));
         $x(cancellationTitle).shouldBe(Condition.visible);
         $x(cancellationText).shouldBe(Condition.visible);
 

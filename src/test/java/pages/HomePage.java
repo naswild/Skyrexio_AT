@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
+import parent.BasePage;
 import utils.PropertyReader;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
     private static final String ACCOUNT_BTN = "//button[@aria-haspopup='menu']";
     private static final String LANGUAGE_BTN = "(//button[@aria-haspopup='menu'])[2]";

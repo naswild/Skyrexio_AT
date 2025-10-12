@@ -5,11 +5,12 @@ import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
+import parent.BasePage;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private static final String EMAIL = "//*[@placeholder='Email']";
     private static final String PASSWORD = "//*[@type='password']";
@@ -37,7 +38,7 @@ public class LoginPage {
 
     @Step("Check if title is right")
     public LoginPage checkIfTitleIsRight() {
-        String loginTitle = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_TITLE));
+        String loginTitle = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_TITLE));
         $x(loginTitle).shouldBe(Condition.visible);
 
         return this;
@@ -79,7 +80,7 @@ public class LoginPage {
 
     @Step("Check if error message is displayed")
     public SelenideElement waitErrorMessage() {
-        String errorMsg = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_ERROR_MSG));
+        String errorMsg = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_ERROR_MSG));
 
         return $x(errorMsg).shouldBe(Condition.visible);
     }
