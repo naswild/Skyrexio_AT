@@ -16,6 +16,8 @@
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.21.2</aspectjweaver.version>
         <allure-testng.version>2.29.1</allure-testng.version>
+        <rest-assured.version>5.5.6</rest-assured.version>
+        <jackson-databind.version>2.20.0</jackson-databind.version>
     </properties>
 
     <dependencies>
@@ -41,6 +43,17 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
     </dependencies>
 

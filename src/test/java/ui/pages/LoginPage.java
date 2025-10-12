@@ -1,4 +1,4 @@
-package pages;
+package ui.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -14,7 +14,8 @@ public class LoginPage {
     private static final String EMAIL = "//*[@placeholder='Email']";
     private static final String PASSWORD = "//*[@type='password']";
     private static final String SUBMIT_BTN = "//*[@type='submit']";
-    private static final String LANGUAGE_BTN = "//*[@aria-haspopup='menu']";
+    private static final String LANGUAGE_MENU_BTN = "//*[@aria-haspopup='menu']";
+    private static final String LANGUAGE_BTN = "//div/span[text()='%s']";
 
     @Step("Open login page")
     public LoginPage openPage() {
@@ -25,9 +26,9 @@ public class LoginPage {
 
     @Step("Choose language")
     public LoginPage chooseLanguage() {
-        String language = "//div/span[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.PAGES_LANGUAGE));
+        String language = LANGUAGE_BTN.formatted(PropertyReader.getProperty(PropertyEnum.PAGES_LANGUAGE));
 
-        $x(LANGUAGE_BTN).click();
+        $x(LANGUAGE_MENU_BTN).click();
         $x(language).click();
         actions().sendKeys(Keys.ESCAPE).perform();
         $x(language).shouldNotBe(Condition.visible);

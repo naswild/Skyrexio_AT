@@ -1,11 +1,11 @@
-package tests;
+package ui.tests;
 
 import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
-import parent.BaseTest;
+import ui.parent.BaseTest;
 
 import static org.testng.Assert.assertThrows;
 
