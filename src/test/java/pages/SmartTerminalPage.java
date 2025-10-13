@@ -3,12 +3,12 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import parent.BasePage;
-import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.*;
+import static enums.PropertyEnum.*;
+import static utils.PropertyReader.getProperty;
 
 public class SmartTerminalPage extends BasePage {
 
@@ -17,6 +17,13 @@ public class SmartTerminalPage extends BasePage {
     private static final String TRADE_MANAGEMENT_MENU
             = "//*[name()='svg' and contains(@class, 'lucide-ellipsis-vertical')]/ancestor::button";
     private static final String DEFAULT_EMPTY_VALUE = "0";
+    final String terminalActive = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_ACTIVE));
+    final String confirmOrderBtn = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_CONFIRM));
+    final String terminalErrorMsg = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_ERROR_MSG));
+    final String cancelBtn = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_CANCEL_TRADE));
+    final String confirmCancellationBtn = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_CONFIRM));
+    final String cancellationTitle = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_CANCELLATION_TITLE));
+    final String cancellationText = TEXT_LOCATOR_PATTERN.formatted(getProperty(TERMINAL_CANCELLATION_TEXT));
 
     @Step("Open smart trade page")
     public SmartTerminalPage openPage() {
@@ -80,15 +87,13 @@ public class SmartTerminalPage extends BasePage {
 
     @Step("Confirm order")
     public SmartTerminalPage confirmOrder() {
-        String confirmBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
-        $x(confirmBtn).shouldBe(Condition.visible).click();
+        $x(confirmOrderBtn).shouldBe(Condition.visible).click();
 
         return this;
     }
 
     @Step("Check if the order is displayed")
     public SmartTerminalPage isOrderActive() {
-        String terminalActive = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ACTIVE));
         $x(terminalActive).shouldBe(Condition.visible);
 
         return this;
@@ -96,8 +101,6 @@ public class SmartTerminalPage extends BasePage {
 
     @Step("Check if error message is visible")
     public SelenideElement isErrorMsgVisible() {
-        String terminalErrorMsg = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_ERROR_MSG));
-
         return $x(terminalErrorMsg).shouldBe(Condition.visible);
     }
 
@@ -110,7 +113,6 @@ public class SmartTerminalPage extends BasePage {
 
     @Step("Cancel order")
     public SmartTerminalPage cancelOrder() {
-        String cancelBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCEL_TRADE));
         $x(cancelBtn).shouldBe(Condition.visible).click();
 
         return this;
@@ -118,16 +120,13 @@ public class SmartTerminalPage extends BasePage {
 
     @Step("Confirm cancellation")
     public SmartTerminalPage confirmCancellation() {
-        String confirmBtn = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CONFIRM));
-        $x(confirmBtn).shouldBe(Condition.visible).click();
+        $x(confirmCancellationBtn).shouldBe(Condition.visible).click();
 
         return this;
     }
 
     @Step("Check if cancellation message is visible")
     public SmartTerminalPage isCancellationMsgVisible() {
-        String cancellationTitle = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TITLE));
-        String cancellationText = TEXT_LOCATOR_PATTERN.formatted(PropertyReader.getProperty(PropertyEnum.TERMINAL_CANCELLATION_TEXT));
         $x(cancellationTitle).shouldBe(Condition.visible);
         $x(cancellationText).shouldBe(Condition.visible);
 
