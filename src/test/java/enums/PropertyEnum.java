@@ -7,6 +7,7 @@ public enum PropertyEnum {
     EMAIL("Skyrexio.email"),
     PASSWORD("Skyrexio.password"),
     BASE_URL("Skyrexio.url"),
+    BASE_URI("Skyrexio.api.uri"),
 
     LOGIN_ERROR_MSG("login.error_msg"),
     LOGIN_TITLE("login.title"),
@@ -15,7 +16,8 @@ public enum PropertyEnum {
 
     TERMINAL_CONFIRM("terminal.confirm"),
     TERMINAL_ACTIVE("terminal.active"),
-    TERMINAL_ERROR_MSG("terminal.error_msg");
+    TERMINAL_ERROR_MSG("terminal.error_msg"),
+    EXCHANGE_ACCOUNT_SPOT("Skyrexio.exchange-account-spot");
 
     private final String value;
 
