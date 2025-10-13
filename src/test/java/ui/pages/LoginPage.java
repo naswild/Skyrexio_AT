@@ -1,4 +1,4 @@
-package pages;
+package ui.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -17,7 +17,7 @@ public class LoginPage extends BasePage {
     private static final String EMAIL_INPUT = "//*[@placeholder='Email']";
     private static final String PASSWORD_INPUT = "//*[@type='password']";
     private static final String SUBMIT_BTN = "//*[@type='submit']";
-    private static final String LANGUAGE_BTN = "//*[@aria-haspopup='menu']";
+    private static final String LANGUAGE_MENU_BTN = "//*[@aria-haspopup='menu']";
     final String language = "//div/span[text()='%s']".formatted(getProperty(PropertyEnum.PAGES_LANGUAGE));
     final String loginTitle = TEXT_LOCATOR_PATTERN.formatted(getProperty(PropertyEnum.LOGIN_TITLE));
     final String errorMsg = TEXT_LOCATOR_PATTERN.formatted(getProperty(PropertyEnum.LOGIN_ERROR_MSG));
@@ -31,7 +31,7 @@ public class LoginPage extends BasePage {
 
     @Step("Choose language")
     public LoginPage chooseLanguage() {
-        $x(LANGUAGE_BTN).click();
+        $x(LANGUAGE_MENU_BTN).click();
         $x(language).click();
         actions().sendKeys(Keys.ESCAPE).perform();
         $x(language).shouldNotBe(Condition.visible);

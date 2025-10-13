@@ -1,12 +1,12 @@
-package parent;
+package ui.parent;
 
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.SmartTerminalPage;
+import ui.pages.HomePage;
+import ui.pages.LoginPage;
+import ui.pages.SmartTerminalPage;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;

@@ -22,6 +22,10 @@ public class PropertyReader {
         properties = null;
     }
 
+    public static void initProperties() {
+        properties = null;
+    }
+
     public static Properties readProperties() {
         if (properties != null) {
             return properties;

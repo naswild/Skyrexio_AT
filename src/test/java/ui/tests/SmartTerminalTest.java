@@ -1,4 +1,4 @@
-package tests;
+package ui.tests;
 
 import com.codeborne.selenide.ex.ElementNotFound;
 import enums.PropertyEnum;
@@ -8,7 +8,7 @@ import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import parent.BaseTest;
+import ui.parent.BaseTest;
 import utils.PropertyReader;
 
 import static org.testng.Assert.assertThrows;
