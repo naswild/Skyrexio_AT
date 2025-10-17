@@ -5,17 +5,22 @@ import com.codeborne.selenide.SelenideElement;
 import enums.PropertyEnum;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
-import utils.PropertyReader;
+import parent.BasePage;
 
 import static com.codeborne.selenide.Selenide.*;
+import static enums.PropertyEnum.EMAIL;
+import static enums.PropertyEnum.PASSWORD;
+import static utils.PropertyReader.getProperty;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
-    private static final String EMAIL = "//*[@placeholder='Email']";
-    private static final String PASSWORD = "//*[@type='password']";
+    private static final String EMAIL_INPUT = "//*[@placeholder='Email']";
+    private static final String PASSWORD_INPUT = "//*[@type='password']";
     private static final String SUBMIT_BTN = "//*[@type='submit']";
     private static final String LANGUAGE_MENU_BTN = "//*[@aria-haspopup='menu']";
-    private static final String LANGUAGE_BTN = "//div/span[text()='%s']";
+    final String language = "//div/span[text()='%s']".formatted(getProperty(PropertyEnum.PAGES_LANGUAGE));
+    final String loginTitle = TEXT_LOCATOR_PATTERN.formatted(getProperty(PropertyEnum.LOGIN_TITLE));
+    final String errorMsg = TEXT_LOCATOR_PATTERN.formatted(getProperty(PropertyEnum.LOGIN_ERROR_MSG));
 
     @Step("Open login page")
     public LoginPage openPage() {
@@ -26,12 +31,17 @@ public class LoginPage {
 
     @Step("Choose language")
     public LoginPage chooseLanguage() {
-        String language = LANGUAGE_BTN.formatted(PropertyReader.getProperty(PropertyEnum.PAGES_LANGUAGE));
-
         $x(LANGUAGE_MENU_BTN).click();
         $x(language).click();
         actions().sendKeys(Keys.ESCAPE).perform();
         $x(language).shouldNotBe(Condition.visible);
+
+        return this;
+    }
+
+    @Step("Check if title is right")
+    public LoginPage checkIfTitleIsRight() {
+        $x(loginTitle).shouldBe(Condition.visible);
 
         return this;
     }
@@ -48,8 +58,8 @@ public class LoginPage {
     @Step("Login")
     public LoginPage loginSuccess() {
         login(
-                PropertyReader.getProperty(PropertyEnum.EMAIL),
-                PropertyReader.getProperty(PropertyEnum.PASSWORD)
+                getProperty(EMAIL),
+                getProperty(PASSWORD)
         );
 
         return this;
@@ -57,22 +67,20 @@ public class LoginPage {
 
     @Step("Input email")
     public LoginPage inputEmail(String email) {
-        $x(EMAIL).shouldBe(Condition.visible).shouldBe(Condition.enabled).setValue(email);
+        $x(EMAIL_INPUT).shouldBe(Condition.visible).shouldBe(Condition.enabled).setValue(email);
 
         return this;
     }
 
     @Step("Input password")
     public LoginPage inputPassword(String password) {
-        $x(PASSWORD).shouldBe(Condition.visible).shouldBe(Condition.enabled).setValue(password);
+        $x(PASSWORD_INPUT).shouldBe(Condition.visible).shouldBe(Condition.enabled).setValue(password);
 
         return this;
     }
 
     @Step("Check if error message is displayed")
     public SelenideElement waitErrorMessage() {
-        String errorMsg = "//*[text()='%s']".formatted(PropertyReader.getProperty(PropertyEnum.LOGIN_ERROR_MSG));
-
         return $x(errorMsg).shouldBe(Condition.visible);
     }
 }

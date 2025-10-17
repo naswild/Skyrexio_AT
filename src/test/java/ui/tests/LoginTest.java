@@ -15,7 +15,7 @@ public class LoginTest extends BaseTest {
 
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Anastasiia Evchuk anastasiiaevchuk@gmail.com")
-    @Test(description = "Login with correct credentials")
+    @Test(description = "Login with correct credentials", priority = 1)
     public void loginWithCorrectCredentials() {
         loginPage.openPage()
                 .chooseLanguage()
@@ -35,11 +35,20 @@ public class LoginTest extends BaseTest {
 
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Anastasiia Evchuk anastasiiaevchuk@gmail.com")
-    @Test(description = "Login with incorrect credentials", dataProvider = "loginData")
+    @Test(description = "Login with incorrect credentials", dataProvider = "loginData", priority = 2)
     public void loginWithIncorrectCredentials(String email, String password) {
         loginPage.openPage()
                 .chooseLanguage()
                 .login(email, password)
                 .waitErrorMessage();
+    }
+
+    @Severity(SeverityLevel.MINOR)
+    @Owner("Anastasiia Evchuk anastasiiaevchuk@gmail.com")
+    @Test(description = "Check if localization is correct")
+    public void isLocalizationCorrect() {
+        loginPage.openPage()
+                .chooseLanguage()
+                .checkIfTitleIsRight();
     }
 }

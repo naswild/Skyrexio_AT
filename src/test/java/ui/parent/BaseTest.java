@@ -1,7 +1,6 @@
 package ui.parent;
 
 import com.codeborne.selenide.Configuration;
-import enums.PropertyEnum;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +11,9 @@ import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
+import static enums.PropertyEnum.BASE_URL;
+import static enums.PropertyEnum.TESTS_LANGUAGE;
+import static utils.PropertyReader.getProperty;
 
 public class BaseTest {
 
@@ -21,14 +23,14 @@ public class BaseTest {
 
     @BeforeClass
     public void chooseLanguage() {
-        PropertyReader.initProperties(PropertyReader.getProperty(PropertyEnum.TESTS_LANGUAGE));
+        PropertyReader.initProperties(getProperty(TESTS_LANGUAGE));
     }
 
     @BeforeMethod
     public void setUp() {
         Configuration.browser = "chrome";
         Configuration.timeout = 10000;
-        Configuration.baseUrl = PropertyReader.getProperty(PropertyEnum.BASE_URL);
+        Configuration.baseUrl = getProperty(BASE_URL);
         Configuration.browserSize = "1920x1080";
 
         loginPage = new LoginPage();

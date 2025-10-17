@@ -18,6 +18,6 @@ public class HomeTest extends BaseTest {
 
         homePage.waitPageLoaded()
                 .chooseLanguage()
-                .isTitleVisible();
+                .isLocalizationCorrect();
     }
 }
